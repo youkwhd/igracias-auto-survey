@@ -1,8 +1,9 @@
 "use strict";
 
-let TARGET = "Sangat tidak puas";
-
 (() => { 
+    const TARGET = "Puas";
+    const SAVE = true;
+
     document
         .querySelectorAll("li>.answerlist2")
         .forEach((node) => {
@@ -10,4 +11,8 @@ let TARGET = "Sangat tidak puas";
                 node.firstChild.click();
             }
         })
+
+    if (SAVE) {
+        document.querySelector(".floatL3").click();
+    }
 })()
