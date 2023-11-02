@@ -28,4 +28,4 @@ https://github.com/youkwhd/igracias-auto-survey`,
     if (SAVE) {
         document.querySelector(".floatL3").click();
     }
-})()
+})();
