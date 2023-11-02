@@ -2,3 +2,14 @@ Igracias Auto Survey
 ====================
 
 Automatically fill igracias surveys.
+
+Instructions
+------------
+
+- Either download or copy script.js.
+- Paste script.js onto the Developer Console.
+
+Shortcuts to open Developer Console:
+- CTRL + Shift + J (Google Chrome)
+- CTRL + Shift + K (Brave)
+- CTRL + Shift + I (Firefox)
