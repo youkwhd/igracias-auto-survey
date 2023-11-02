@@ -2,7 +2,7 @@
 
 (() => { 
     const TARGET = "Puas";
-    const SAVE = false;
+    const SAVE = true;
 
     console.log(`
 %cy%co%cu%ck%cw%ch%cd %c<lolywk@tutanota.com>%c
