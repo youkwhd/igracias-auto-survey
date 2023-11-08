@@ -1,8 +1,33 @@
 "use strict";
 
 (() => { 
+    /**
+     * @type {String[2]}
+     * 
+     * First element can be either:
+     *   - "Sangat tidak puas"
+     *   - "Tidak puas"
+     *   - "Puas"
+     *   - "Sangat puas"
+     * 
+     * Second element can be either:
+     *   - "Ya"
+     *   - "Tidak"
+     */
     const TARGETS = ["Puas", "Ya"];
+
+    /**
+     * Fills in text-based inputs with
+     * the following value.
+     *
+     * Replace with any, if necessary.
+     */
     const INPUT = "_";
+
+    /**
+     * Automatically save and submit answers,
+     * Set to `false` to disable.
+     */
     const SAVE = true;
 
     console.log(`
