@@ -2,6 +2,7 @@
 
 (() => { 
     const TARGETS = ["Puas", "Ya"];
+    const INPUT = "_";
     const SAVE = true;
 
     console.log(`
@@ -25,9 +26,12 @@ https://github.com/youkwhd/igracias-auto-survey`,
                     node.firstChild.click();
                 }
             })
-        })
+        });
+    
+    document
+        .querySelectorAll("textarea")
+        .forEach((node) => node.value = INPUT);
 
-    if (SAVE) {
+    if (SAVE)
         document.querySelector(".floatL3").click();
-    }
 })();
