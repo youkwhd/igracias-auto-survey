@@ -18,6 +18,15 @@ https://github.com/youkwhd/igracias-auto-survey`,
     "background-color: #000000; color: #ffffff",
     "background-color: #000000; color: #7bf920");
 
+    if (SAVE) {
+        const submitButton = document.querySelector(".floatL4");
+
+        if (submitButton) {
+            submitButton.click();
+            return;
+        }
+    }
+
     document
         .querySelectorAll("li>.answerlist2")
         .forEach((node) => {
