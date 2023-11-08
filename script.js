@@ -1,7 +1,7 @@
 "use strict";
 
 (() => { 
-    const TARGET = "Puas";
+    const TARGETS = ["Puas", "Ya"];
     const SAVE = true;
 
     console.log(`
@@ -20,9 +20,11 @@ https://github.com/youkwhd/igracias-auto-survey`,
     document
         .querySelectorAll("li>.answerlist2")
         .forEach((node) => {
-            if (node.nextSibling.textContent.toLowerCase() == TARGET.toLowerCase()) {
-                node.firstChild.click();
-            }
+            TARGETS.forEach((target) => {
+                if (node.nextSibling.textContent.toLowerCase() == target.toLowerCase()) {
+                    node.firstChild.click();
+                }
+            })
         })
 
     if (SAVE) {
