@@ -1,60 +1,64 @@
 (() => {
-    const parentMenu = browser.contextMenus.create({
+    let __browser = chrome ?? browser;
+
+    const parentMenu = __browser.contextMenus.create({
         id: "igraciasv-parent",
         title: "Igracias Auto Survey",
     });
     
-    browser.contextMenus.create({
+    __browser.contextMenus.create({
         parentId: parentMenu,
         id: "igraciasv-execute",
         title: "Execute",
     });
 
-    browser.contextMenus.create({
+    __browser.contextMenus.create({
         parentId: parentMenu,
         id: "igraciasv-debug",
         title: "Debug",
     });
     
-    browser.contextMenus.onClicked.addListener((info, tab) => {
+    __browser.contextMenus.onClicked.addListener((info, tab) => {
         switch (info.menuItemId) {
         case "igraciasv-debug":
-            browser.scripting.executeScript({
+            __browser.scripting.executeScript({
                 target: {
                     tabId: tab.id,
                     allFrames: true,
                 },
                 func: async () => {
-                    let config = await browser.storage.local.get();
+                    const __browser = chrome ?? browser;
+                    let config = await __browser.storage.local.get();
                     if (Object.keys(config).length === 0) {
                         const defaultConfig = {
                             targets: ["Puas", "Ya"],
                             input: "_",
                             save: true,
                         };
-                        await browser.storage.local.set(defaultConfig);
+                        await __browser.storage.local.set(defaultConfig);
                         config = defaultConfig;
                     }
-                    
+
                     console.info("igraciasv: ", config);
                 }
             });
             break;
         case "igraciasv-execute":
-            browser.scripting.executeScript({
+            __browser.scripting.executeScript({
                 target: {
                     tabId: tab.id,
                     allFrames: true,
                 },
                 func: async () => {
-                    let config = await browser.storage.local.get();
+                    const __browser = chrome ?? browser;
+                    let config = await __browser.storage.local.get();
                     if (Object.keys(config).length === 0) {
                         const defaultConfig = {
                             targets: ["Puas", "Ya"],
                             input: "_",
                             save: true,
                         };
-                        await browser.storage.local.set(defaultConfig);
+                        await __browser.storage.local.set(defaultConfig);
                         config = defaultConfig;
                     }
 

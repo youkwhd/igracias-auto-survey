@@ -1,5 +1,7 @@
+const __browser = chrome ?? browser;
+
 const getConfig = async () => {
-    const config = await browser.storage.local.get();
+    const config = await __browser.storage.local.get();
 
     if (Object.keys(config).length === 0) {
         const defaultConfig = {
@@ -8,7 +10,7 @@ const getConfig = async () => {
             save: true,
         };
 
-        await browser.storage.local.set(defaultConfig);
+        await __browser.storage.local.set(defaultConfig);
         return defaultConfig;
     }
 
@@ -16,7 +18,7 @@ const getConfig = async () => {
 }
 
 const saveConfig = async (newConfig) => {
-    await browser.storage.local.set(newConfig);
+    await __browser.storage.local.set(newConfig);
 }
 
 const resetForm = (form, config) => {
