@@ -70,6 +70,14 @@
 
                     const div = document.createElement("div");
                     div.id = "igraciasv-settings";
+                    div.style.zIndex = "9999";
+                    div.style.backgroundColor = "black";
+                    div.style.color = "white";
+                    div.style.position = "fixed";
+                    div.style.left = "50%";
+                    div.style.top = "50%";
+                    div.style.transform = "translate(-50%, -80%)";
+                    div.style.padding = "10px";
 
                     const header = document.createElement("h1");
                     header.innerText = "Settings";
@@ -140,7 +148,7 @@
                     div.appendChild(document.createElement("br"));
                     div.appendChild(saveButton);
                     div.appendChild(exitButton);
-                    document.body.appendChild(div);
+                    document.body.prepend(div);
                 }
             });
             break;
