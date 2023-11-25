@@ -9,6 +9,9 @@
         "48": "icons/igracias-icon.png",
         "128": "icons/igracias-icon.png"
     },
+    "action": {
+        "default_popup": "ui/index.html"
+    },
     "background": {
         "scripts": ["background.js"]
     }
