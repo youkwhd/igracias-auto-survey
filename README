@@ -6,8 +6,12 @@ Automagically fill igracias surveys.
 Instructions
 ------------
 
-- Either download or copy script.js.
-- Paste script.js onto the Developer Console.
+- Either download or copy legacy/script.js.
+- Paste legacy/script.js onto the Developer Console.
+
+If you still don't know where to find the script:
+
+    https://raw.githubusercontent.com/youkwhd/igracias-auto-survey/master/legacy/script.js
 
 Shortcuts to open Developer Console:
 
