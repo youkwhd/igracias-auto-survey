@@ -15,9 +15,37 @@
         id: "igraciasv-settings",
         title: "Settings",
     });
+
+    browser.contextMenus.create({
+        parentId: parentMenu,
+        id: "igraciasv-debug",
+        title: "Debug",
+    });
     
     browser.contextMenus.onClicked.addListener((info, tab) => {
         switch (info.menuItemId) {
+        case "igraciasv-debug":
+            browser.scripting.executeScript({
+                target: {
+                    tabId: tab.id,
+                    allFrames: true,
+                },
+                func: async () => {
+                    let config = await browser.storage.local.get();
+                    if (Object.keys(config).length === 0) {
+                        const defaultConfig = {
+                            targets: ["Puas", "Ya"],
+                            input: "_",
+                            save: true,
+                        };
+                        await browser.storage.local.set(defaultConfig);
+                        config = defaultConfig;
+                    }
+                    
+                    console.info("igraciasv: ", config);
+                }
+            });
+        break;
         case "igraciasv-settings":
             browser.scripting.executeScript({
                 target: {
@@ -36,13 +64,82 @@
                         config = defaultConfig;
                     }
 
-                    const __igraciasvSettings = document.querySelector("#igraciasv-settings");
-                    if (__igraciasvSettings)
+                    const igraciasvSettings = document.querySelector("#igraciasv-settings");
+                    if (igraciasvSettings)
                         return;
 
                     const div = document.createElement("div");
                     div.id = "igraciasv-settings";
-                    div.innerText = "> Settings";
+
+                    const header = document.createElement("h1");
+                    header.innerText = "Settings";
+
+                    const targetSelects = [document.createElement("select"), document.createElement("select")];
+                    targetSelects[0].name = "igraciasv-settings-target-0";
+                    targetSelects[1].name = "igraciasv-settings-target-1";
+
+                    ["Sangat Tidak Puas", "Tidak Puas", "Puas", "Sangat Puas"].forEach((v) => {
+                        let __option = document.createElement("option");
+                        __option.value = v;
+                        __option.innerText = v;
+                        targetSelects[0].appendChild(__option);
+                    });
+
+                    ["Ya", "Tidak"].forEach((v) => {
+                        let __option = document.createElement("option");
+                        __option.value = v;
+                        __option.innerText = v;
+                        targetSelects[1].appendChild(__option);
+                    });
+
+                    targetSelects[0].value = config.targets[0];
+                    targetSelects[1].value = config.targets[1];
+
+                    const inputField = document.createElement("input");
+                    inputField.name = "igraciasv-settings-input";
+                    inputField.value = config.input;
+                    const inputLabel = document.createElement("label");
+                    inputLabel.innerText = "Text Input: ";
+                    inputLabel.htmlFor = "igraciasv-settings-input";
+
+                    const saveChoice = document.createElement("input");
+                    saveChoice.type = "checkbox";
+                    saveChoice.checked = config.save;
+                    saveChoice.name = "igraciasv-settings-save";
+                    const saveLabel = document.createElement("label");
+                    saveLabel.innerText = "Auto Save";
+                    saveLabel.htmlFor = "igraciasv-settings-save";
+
+                    const saveButton = document.createElement("button");
+                    saveButton.innerText = "Save Settings";
+                    saveButton.onclick = async (e) => {
+                        config = {
+                            targets: [targetSelects[0].value, targetSelects[1].value],
+                            input: inputField.value,
+                            save: saveChoice.checked,
+                        };
+                        await browser.storage.local.set(config);
+                    }
+
+                    const exitButton = document.createElement("button");
+                    exitButton.innerText = "Exit";
+                    exitButton.onclick = () => {
+                        document.querySelector("#igraciasv-settings").remove();
+                    } 
+
+                    div.appendChild(header);
+                    div.appendChild(document.createElement("br"));
+                    div.appendChild(targetSelects[0]);
+                    div.appendChild(targetSelects[1]);
+                    div.appendChild(document.createElement("br"));
+                    div.appendChild(inputLabel);
+                    div.appendChild(inputField);
+                    div.appendChild(document.createElement("br"));
+                    div.appendChild(saveChoice);
+                    div.appendChild(saveLabel);
+                    div.appendChild(document.createElement("br"));
+                    div.appendChild(saveButton);
+                    div.appendChild(exitButton);
                     document.body.appendChild(div);
                 }
             });
@@ -64,7 +161,7 @@
                         await browser.storage.local.set(defaultConfig);
                         config = defaultConfig;
                     }
-                
+
                     if (config.save) {
                         const submitButton = document.querySelector(".floatL4");
                 
