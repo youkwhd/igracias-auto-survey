@@ -5,7 +5,7 @@
  */
 
 (() => {
-    const config = { targets: ["Puas", "Ya"], input: "_", save: true };
+    const config = { targets: ["Puas", "Setuju", "Ya"], input: "_", save: true };
     const {targets, input, save} = config;
 
     if (save) {
@@ -33,4 +33,4 @@
 
     if (save)
         document.querySelector(".floatL3").click();
-});
+})();
