@@ -1,7 +1,7 @@
 /* ATTENTION: This script is no longer maintained, instead
  * will be adopted to be a fully functional extension.
  * 
- * see: https://github.com/youkwhd/igracias.telkomuniversity.ac.id/
+ * see: https://github.com/youkwhd/igracias-auto-survey
  */
 
 (() => {
