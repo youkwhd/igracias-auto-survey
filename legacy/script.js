@@ -29,15 +29,17 @@
                 if (node.__IGRACIAS_SURVEY_FILLED)
                     return;
 
-                for (let i = 0; i < node.childNodes.length; i++) {
-                    for (let j = 0; j < FIXED_TARGETS.length; j++) {
-                        if (node.childNodes[i].lastChild.textContent.toLowerCase() === FIXED_TARGETS[j].toLowerCase()) {
-                            node.childNodes[i].firstChild.firstChild.click();
-                            node.__IGRACIAS_SURVEY_FILLED = true;
-                            return;
+                (() => {
+                    for (let i = 0; i < node.childNodes.length; i++) {
+                        for (let j = 0; j < FIXED_TARGETS.length; j++) {
+                            if (node.childNodes[i].lastChild.textContent.toLowerCase() === FIXED_TARGETS[j].toLowerCase()) {
+                                node.childNodes[i].firstChild.firstChild.click();
+                                node.__IGRACIAS_SURVEY_FILLED = true;
+                                return;
+                            }
                         }
                     }
-                }
+                })();
             }
 
             if (SURVEY_MODE & SURVEY_MODE_RANDOM_TARGET) {
