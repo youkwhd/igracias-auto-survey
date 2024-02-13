@@ -1,36 +1,74 @@
-/* ATTENTION: This script is no longer maintained, instead
- * will be adopted to be a fully functional extension.
- * 
- * see: https://github.com/youkwhd/igracias-auto-survey
- */
-
 (() => {
-    const config = { targets: ["Puas", "Setuju", "Ya"], input: "_", save: true };
-    const {targets, input, save} = config;
+    const TARGETS = [
+        "Puas",
+        "Setuju",
+        "Ya",
+    ];
 
-    if (save) {
+    const TEXT_INPUT_VALUE  = "_";
+    const AUTO_SAVE = true;
+
+    const SURVEY_MODE_TARGETS = 1;
+    const SURVEY_MODE_RANDOM = SURVEY_MODE_TARGETS << 1;
+    const SURVEY_MODE = SURVEY_MODE_TARGETS | SURVEY_MODE_RANDOM;
+
+    const saveSurvey = () => {
         const submitButton = document.querySelector(".floatL4");
 
         if (submitButton) {
             submitButton.click();
-            return;
+            return true;
         }
+
+        return false;
+    };
+
+    const fillSurvey = (mode) => {
+        const pickTarget = (mode, node) => {
+            node.__IGRACIAS_SURVEY_FILLED = false;
+
+            if (mode & SURVEY_MODE_TARGETS) {
+                if (node.__IGRACIAS_SURVEY_FILLED)
+                    return;
+
+                for (let i = 0; i < node.childNodes.length; i++) {
+                    for (let j = 0; j < TARGETS.length; j++) {
+                        if (node.childNodes[i].lastChild.textContent.toLowerCase() === TARGETS[i].toLowerCase()) {
+                            node.childNodes[i].firstChild.firstChild.click();
+                            node.__IGRACIAS_SURVEY_FILLED = true;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (mode & SURVEY_MODE_RANDOM) {
+                if (node.__IGRACIAS_SURVEY_FILLED)
+                    return;
+
+                const randomTarget = node.childNodes[Math.floor(Math.random() * node.childNodes.length)];
+                randomTarget.firstChild.firstChild.click();
+                node.__IGRACIAS_SURVEY_FILLED = true;
+            }
+        };
+
+        document
+            .querySelectorAll(`ul:has(li>div[class="answerlist1"])`)
+            .forEach((node) => pickTarget(mode, node));
+
+        document
+            .querySelectorAll("textarea")
+            .forEach((node) => node.value = TEXT_INPUT_VALUE);
+    };
+
+    if (AUTO_SAVE) {
+        const saved = saveSurvey();
+        if (saved) return;
     }
 
-    document
-        .querySelectorAll("li>.answerlist2")
-        .forEach((node) => {
-            targets.forEach((target) => {
-                if (node.nextSibling.textContent.toLowerCase() == target.toLowerCase()) {
-                    node.firstChild.click();
-                }
-            })
-        });
+    fillSurvey(SURVEY_MODE);
 
-    document
-        .querySelectorAll("textarea")
-        .forEach((node) => node.value = input);
-
-    if (save)
-        document.querySelector(".floatL3").click();
+    if (AUTO_SAVE) {
+        saveSurvey();
+    }
 })();
