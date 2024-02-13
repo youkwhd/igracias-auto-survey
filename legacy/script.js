@@ -12,19 +12,17 @@
     const SURVEY_MODE_RANDOM = SURVEY_MODE_TARGETS << 1;
     const SURVEY_MODE = SURVEY_MODE_TARGETS | SURVEY_MODE_RANDOM;
 
-    const saveSurvey = () => {
+    if (AUTO_SAVE) {
         const submitButton = document.querySelector(".floatL4");
 
         if (submitButton) {
             submitButton.click();
-            return true;
         }
+    }
 
-        return false;
-    };
-
-    const fillSurvey = (mode) => {
-        const pickTarget = (mode, node) => {
+    document
+        .querySelectorAll(`ul:has(li>div[class="answerlist1"])`)
+        .forEach((node) => {
             node.__IGRACIAS_SURVEY_FILLED = false;
 
             if (mode & SURVEY_MODE_TARGETS) {
@@ -50,25 +48,15 @@
                 randomTarget.firstChild.firstChild.click();
                 node.__IGRACIAS_SURVEY_FILLED = true;
             }
-        };
 
-        document
-            .querySelectorAll(`ul:has(li>div[class="answerlist1"])`)
-            .forEach((node) => pickTarget(mode, node));
 
-        document
-            .querySelectorAll("textarea")
-            .forEach((node) => node.value = TEXT_INPUT_VALUE);
-    };
+        });
+
+    document
+        .querySelectorAll("textarea")
+        .forEach((node) => node.value = TEXT_INPUT_VALUE);
 
     if (AUTO_SAVE) {
-        const saved = saveSurvey();
-        if (saved) return;
-    }
-
-    fillSurvey(SURVEY_MODE);
-
-    if (AUTO_SAVE) {
-        saveSurvey();
+        document.querySelector(".floatL3").click();
     }
 })();
