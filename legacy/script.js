@@ -33,7 +33,7 @@
 
                 for (let i = 0; i < node.childNodes.length; i++) {
                     for (let j = 0; j < TARGETS.length; j++) {
-                        if (node.childNodes[i].lastChild.textContent.toLowerCase() === TARGETS[i].toLowerCase()) {
+                        if (node.childNodes[i].lastChild.textContent.toLowerCase() === TARGETS[j].toLowerCase()) {
                             node.childNodes[i].firstChild.firstChild.click();
                             node.__IGRACIAS_SURVEY_FILLED = true;
                             return;
