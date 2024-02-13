@@ -48,8 +48,6 @@
                 randomTarget.firstChild.firstChild.click();
                 node.__IGRACIAS_SURVEY_FILLED = true;
             }
-
-
         });
 
     document
