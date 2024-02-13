@@ -25,7 +25,7 @@
         .forEach((node) => {
             node.__IGRACIAS_SURVEY_FILLED = false;
 
-            if (mode & SURVEY_MODE_TARGETS) {
+            if (SURVEY_MODE & SURVEY_MODE_TARGETS) {
                 if (node.__IGRACIAS_SURVEY_FILLED)
                     return;
 
@@ -40,7 +40,7 @@
                 }
             }
 
-            if (mode & SURVEY_MODE_RANDOM) {
+            if (SURVEY_MODE & SURVEY_MODE_RANDOM) {
                 if (node.__IGRACIAS_SURVEY_FILLED)
                     return;
 
